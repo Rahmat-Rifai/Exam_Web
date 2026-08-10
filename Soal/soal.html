@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ujian Bahasa Indonesia</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f8fafc;
+      color: #334155;
+      padding: 20px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .question-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .option-label:hover {
+      background-color: #f1f5f9;
+    }
+
+    .option-label input[type="radio"] {
+      margin-right: 12px;
+      transform: scale(1.2);
+      accent-color: #10b981;
+    }
+
+    /* Style ketika radio button dipilih */
+    input[type="radio"]:checked + span {
+      font-weight: bold;
+      color: #059669;
+    }
+
+    .btn-finish {
+      display: block;
+      width: 100%;
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      padding: 16px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 30px;
+      margin-bottom: 50px;
+      transition: background-color 0.2s;
+    }
+
+    .btn-finish:hover {
+      background-color: #dc2626;
+    }
+
+    /* Modal Hasil Ujian */
+    .result-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 10px;
+      color: #0f172a;
+    }
+
+    .score-display {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #10b981;
+      margin: 20px 0;
+    }
+
+    .btn-back {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>Ujian Literasi Bahasa Indonesia</h1>
+      <p>Waktu Tersisa: <span id="timer">75:00</span></p>
+    </div>
+
+    <form id="examForm">
+      <!-- Soal 1 -->
+      <div class="question-card">
+        <p class="question-text">1. Kalimat berikut yang menggunakan ejaan bahasa Indonesia yang benar adalah...</p>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q1" value="A"> <span>A. Ia membeli obat di apotik.</span></label>
+          <label class="option-label"><input type="radio" name="q1" value="B"> <span>B. Ayah membeli obat di apotek.</span></label>
+          <label class="option-label"><input type="radio" name="q1" value="C"> <span>C. Adik disuruh ibu pergi keapotek.</span></label>
+          <label class="option-label"><input type="radio" name="q1" value="D"> <span>D. Kita harus merubah sikap buruk tersebut.</span></label>
+        </div>
+      </div>
+
+      <!-- Soal 2 -->
+      <div class="question-card">
+        <p class="question-text">2. Bacalah kalimat berikut!<br><i>Karena rajin belajar, Budi menjadi juara kelas.</i><br>Kalimat di atas menggunakan majas...</p>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q2" value="A"> <span>A. Personifikasi</span></label>
+          <label class="option-label"><input type="radio" name="q2" value="B"> <span>B. Metafora</span></label>
+          <label class="option-label"><input type="radio" name="q2" value="C"> <span>C. Hiperbola</span></label>
+          <label class="option-label"><input type="radio" name="q2" value="D"> <span>D. Tidak menggunakan majas</span></label>
+        </div>
+      </div>
+
+      <!-- Soal 3 -->
+      <div class="question-card">
+        <p class="question-text">3. Kata "fluktuasi" memiliki arti yang paling dekat dengan...</p>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q3" value="A"> <span>A. Kemerosotan yang tajam</span></label>
+          <label class="option-label"><input type="radio" name="q3" value="B"> <span>B. Keadaan yang selalu tetap</span></label>
+          <label class="option-label"><input type="radio" name="q3" value="C"> <span>C. Gejala turun naiknya harga/keadaan</span></label>
+          <label class="option-label"><input type="radio" name="q3" value="D"> <span>D. Perkembangan yang pesat</span></label>
+        </div>
+      </div>
+
+      <!-- Soal 4 -->
+      <div class="question-card">
+        <p class="question-text">4. "Bagi semua siswa-siswi harap berkumpul di lapangan."<br>Agar menjadi kalimat efektif, perbaikan yang tepat adalah...</p>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q4" value="A"> <span>A. Semua siswa-siswi harap berkumpul di lapangan.</span></label>
+          <label class="option-label"><input type="radio" name="q4" value="B"> <span>B. Bagi semua siswa harap berkumpul di lapangan.</span></label>
+          <label class="option-label"><input type="radio" name="q4" value="C"> <span>C. Siswa-siswi harap berkumpul di lapangan.</span></label>
+          <label class="option-label"><input type="radio" name="q4" value="D"> <span>D. Bagi siswa-siswa sekalian harap kumpul di lapangan.</span></label>
+        </div>
+      </div>
+
+      <!-- Soal 5 -->
+      <div class="question-card">
+        <p class="question-text">5. Kalimat yang merupakan fakta dalam paragraf berita adalah...</p>
+        <div class="options-group">
+          <label class="option-label"><input type="radio" name="q5" value="A"> <span>A. Mungkin besok akan terjadi hujan lebat di kawasan Jakarta.</span></label>
+          <label class="option-label"><input type="radio" name="q5" value="B"> <span>B. Pemerintah sebaiknya segera menurunkan harga sembako.</span></label>
+          <label class="option-label"><input type="radio" name="q5" value="C"> <span>C. Gempa bermagnitudo 5,6 mengguncang Cianjur pada Senin siang.</span></label>
+          <label class="option-label"><input type="radio" name="q5" value="D"> <span>D. Masyarakat sangat antusias menyambut kedatangan presiden.</span></label>
+        </div>
+      </div>
+
+      <button type="button" class="btn-finish" onclick="selesaiUjian()">Selesai Ujian</button>
+    </form>
+  </div>
+
+  <!-- Modal Hasil -->
+  <div class="result-modal" id="resultModal">
+    <div class="modal-content">
+      <h2>Ujian Selesai!</h2>
+      <p>Nilai Anda adalah:</p>
+      <div class="score-display" id="scoreDisplay">0</div>
+      <p id="feedbackText">Tetap semangat belajar!</p>
+      <!-- Pastikan href mengarah ke halaman utama/homepage Anda -->
+      <a href="../homepage/index.html" class="btn-back">Kembali ke Beranda</a>
+    </div>
+  </div>
+
+  <script>
+    // Kunci Jawaban
+    const kunciJawaban = {
+      q1: "B",
+      q2: "D",
+      q3: "C",
+      q4: "C",
+      q5: "C"
+    };
+
+    function selesaiUjian() {
+      // 1. Munculkan konfirmasi
+      const yakin = confirm("Apakah Anda yakin ingin mengakhiri ujian? Jawaban tidak dapat diubah lagi.");
+      
+      if (yakin) {
+        let score = 0;
+        const totalSoal = 5;
+        const form = document.getElementById('examForm');
+
+        // 2. Hitung nilai
+        for (let i = 1; i <= totalSoal; i++) {
+          const jawabanUser = form.elements['q' + i].value;
+          if (jawabanUser === kunciJawaban['q' + i]) {
+            score += 20; // 5 soal x 20 poin = 100 poin maksimal
+          }
+        }
+
+        // 3. Tampilkan hasil di Modal
+        const modal = document.getElementById('resultModal');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const feedbackText = document.getElementById('feedbackText');
+
+        scoreDisplay.textContent = score;
+        
+        if (score === 100) {
+          feedbackText.textContent = "Luar biasa! Jawaban Anda benar semua.";
+        } else if (score >= 60) {
+          feedbackText.textContent = "Kerja bagus! Tingkatkan terus belajarmu.";
+        } else {
+          feedbackText.textContent = "Jangan menyerah, ayo belajar lebih giat lagi!";
+        }
+
+        modal.style.display = "flex"; // Tampilkan modal
+      }
+    }
+  </script>
+</body>
+</html>
