@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registrasi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Login Form -->
+        <div class="auth-box" id="loginBox">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">Username:</label>
+                    <input type="text" id="loginUsername" name="username" placeholder="Masukkan username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="Masukkan password" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            
+            <div class="auth-links">
+                <p>Belum punya akun? <a href="#" onclick="switchForm('register')">Daftar di sini</a></p>
+            </div>
+            
+            <div id="loginMessage" class="message"></div>
+        </div>
+
+        <!-- Register Form -->
+        <div class="auth-box" id="registerBox" style="display: none;">
+            <h1>Daftar Akun Baru</h1>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername">Username:</label>
+                    <input type="text" id="regUsername" name="username" placeholder="Masukkan username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regEmail">Email:</label>
+                    <input type="email" id="regEmail" name="email" placeholder="Masukkan email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPassword">Password:</label>
+                    <input type="password" id="regPassword" name="password" placeholder="Masukkan password (min 6 karakter)" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regConfirmPassword">Konfirmasi Password:</label>
+                    <input type="password" id="regConfirmPassword" name="confirmPassword" placeholder="Konfirmasi password" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Daftar</button>
+            </form>
+            
+            <div class="auth-links">
+                <p>Sudah punya akun? <a href="#" onclick="switchForm('login')">Login di sini</a></p>
+            </div>
+            
+            <div id="registerMessage" class="message"></div>
+        </div>
+
+        <!-- Success Box -->
+        <div class="auth-box" id="successBox" style="display: none;">
+            <h1>Berhasil!</h1>
+            <div id="successMessage" class="success-message"></div>
+            <div class="user-info">
+                <h3>Info Akun:</h3>
+                <p><strong>Username:</strong> <span id="successUsername"></span></p>
+                <p><strong>Email:</strong> <span id="successEmail"></span></p>
+            </div>
+            <button onclick="backToLogin()" class="btn-primary">Kembali ke Login</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

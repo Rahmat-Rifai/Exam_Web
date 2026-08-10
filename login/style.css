@@ -1,0 +1,253 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3f4f6; /* Warna abu-abu terang yang bersih */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #111827;
+}
+
+/* Menggabungkan container dari kedua sumber */
+.login-container, 
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+/* Menggabungkan box/card dari kedua sumber */
+.login-box, 
+.auth-box {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 24px; /* Sudut melengkung yang modern */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03), 0 4px 10px rgba(0, 0, 0, 0.04);
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-box h1, 
+.auth-box h1 {
+    text-align: left; /* Rata kiri untuk kesan modern */
+    color: #111827;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4b5563;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* Input Fields */
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input:not([type="checkbox"]) {
+    width: 100%;
+    padding: 14px 16px;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #111827;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.form-group input::placeholder {
+    color: #9ca3af;
+}
+
+.form-group input:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: #4f46e5; /* Aksen warna Indigo */
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* Checkbox Modern */
+.form-group input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #4f46e5;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.form-group input[type="checkbox"] + label {
+    display: inline;
+    font-weight: normal;
+    margin-bottom: 0;
+    cursor: pointer;
+    color: #4b5563;
+}
+
+/* Tombol Utama */
+.login-btn, 
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background-color: #4f46e5; /* Aksen warna solid modern */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.login-btn:hover, 
+.btn-primary:hover {
+    background-color: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+}
+
+.login-btn:active, 
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+}
+
+/* Links & Text Bawah */
+.login-links, 
+.auth-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.auth-links {
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-links a, 
+.auth-links a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.login-links a:hover, 
+.auth-links a:hover {
+    color: #3730a3;
+    text-decoration: underline;
+}
+
+.auth-links p {
+    color: #6b7280;
+}
+
+/* Alert Messages */
+.message {
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    display: none;
+    font-size: 14px;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message.success, 
+.success-message {
+    background-color: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+    display: block;
+}
+
+.success-message {
+    margin-bottom: 20px;
+}
+
+.message.error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    display: block;
+}
+
+.message.loading {
+    background-color: #eff6ff;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+    display: block;
+}
+
+/* Info Box */
+.user-info {
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 16px;
+    margin: 20px 0;
+    border: 1px solid #e5e7eb;
+}
+
+.user-info h3 {
+    color: #111827;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.user-info p {
+    color: #4b5563;
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.user-info strong {
+    color: #111827;
+}
+
+/* State */
+.btn-primary:disabled, 
+.login-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+form {
+    animation: fadeIn 0.4s ease-in;
+}
