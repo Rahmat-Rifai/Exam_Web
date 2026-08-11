@@ -1,0 +1,26 @@
+# Node.js dependencies
+node_modules/
+
+# Bundled Node.js portable runtime (jalankan dengan Node terinstall sistem)
+node.exe
+npm
+npm.cmd
+npm.ps1
+npx
+npx.cmd
+npx.ps1
+corepack
+corepack.cmd
+nodevars.bat
+install_tools.bat
+
+# Logs
+*.log
+
+# Editor / OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Internal
+.freebuff/
