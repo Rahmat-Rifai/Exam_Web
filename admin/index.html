@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin — UjianKu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="layout">
+
+        <!-- ===== Sidebar ===== -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">🎓</div>
+                <div class="brand-text">
+                    <span>UjianKu</span>
+                    <small>Panel Admin</small>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <button class="nav-item active" data-section="overview">
+                    <span class="nav-ico">📊</span> Ringkasan
+                </button>
+                <button class="nav-item" data-section="exams">
+                    <span class="nav-ico">📚</span> Kelola Ujian
+                </button>
+                <button class="nav-item" data-section="tokens">
+                    <span class="nav-ico">🎫</span> Token Ujian
+                </button>
+                <button class="nav-item" data-section="users">
+                    <span class="nav-ico">👥</span> Siswa &amp; Admin
+                </button>
+                <button class="nav-item" data-section="results">
+                    <span class="nav-ico">📈</span> Hasil Ujian
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="admin-chip">
+                    <div class="avatar" id="adminAvatar">?</div>
+                    <div>
+                        <strong id="adminName">-</strong>
+                        <small>Administrator</small>
+                    </div>
+                </div>
+                <a class="side-link" href="/homepage/index.html">← Lihat situs</a>
+                <button class="btn-logout" onclick="logout()">Keluar</button>
+            </div>
+        </aside>
+
+        <!-- ===== Konten utama ===== -->
+        <main class="main">
+
+            <!-- ===== Ringkasan ===== -->
+            <section class="section active" id="section-overview">
+                <div class="section-head">
+                    <h1>Ringkasan</h1>
+                    <p>Pantau kondisi ujian secara keseluruhan.</p>
+                </div>
+
+                <div class="stat-grid" id="statCards"></div>
+
+                <div class="two-col">
+                    <div class="panel">
+                        <div class="panel-head">
+                            <h2>Status Ujian</h2>
+                            <button class="link-btn" data-goto="exams">Kelola →</button>
+                        </div>
+                        <div class="exam-status-list" id="overviewExams"></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head">
+                            <h2>Aktivitas Terbaru</h2>
+                            <button class="link-btn" data-goto="results">Semua →</button>
+                        </div>
+                        <div class="table-wrap">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Siswa</th>
+                                        <th>Ujian</th>
+                                        <th>Skor</th>
+                                        <th>Waktu</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentResults"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Kelola Ujian ===== -->
+            <section class="section" id="section-exams">
+                <div class="section-head">
+                    <h1>Kelola Ujian</h1>
+                    <p>Aktifkan/nonaktifkan ujian dan atur durasi. Perubahan langsung berlaku untuk semua siswa.</p>
+                </div>
+                <div class="exam-config-grid" id="examConfigList"></div>
+            </section>
+
+            <!-- ===== Token ===== -->
+            <section class="section" id="section-tokens">
+                <div class="section-head">
+                    <h1>Token Ujian</h1>
+                    <p>Generate token yang wajib dimasukkan siswa sebelum ujian dimulai. Token sekali pakai per siswa.</p>
+                </div>
+
+                <div class="panel generate-panel">
+                    <h2>🎫 Generate Token Baru</h2>
+                    <div class="generate-form">
+                        <div class="form-field">
+                            <label>Mata Pelajaran</label>
+                            <select id="genExam"></select>
+                        </div>
+                        <div class="form-field">
+                            <label>Jumlah Token</label>
+                            <input type="number" id="genCount" min="1" max="100" value="5">
+                        </div>
+                        <div class="form-field">
+                            <label>Masa Berlaku (menit)</label>
+                            <input type="number" id="genExpiry" min="5" value="120">
+                        </div>
+                        <button class="btn-primary" id="btnGenerate">Generate</button>
+                    </div>
+                    <div class="generated-box" id="generatedBox" style="display:none;">
+                        <div class="generated-head">
+                            <strong>Token baru (klik untuk salin):</strong>
+                            <button class="link-btn" id="btnCopyAll">Salin Semua</button>
+                        </div>
+                        <div class="token-chips" id="generatedTokens"></div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <h2>Daftar Token</h2>
+                        <div class="table-tools">
+                            <input type="text" id="tokenSearch" class="search-input" placeholder="Cari token...">
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Token</th>
+                                    <th>Ujian</th>
+                                    <th>Status</th>
+                                    <th>Berlaku s/d</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tokenList"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Siswa & Admin ===== -->
+            <section class="section" id="section-users">
+                <div class="section-head">
+                    <h1>Siswa &amp; Admin</h1>
+                    <p>Kelola semua akun: buat akun baru, blokir, reset password, atau hapus.</p>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <h2>Daftar Pengguna</h2>
+                        <div class="table-tools">
+                            <input type="text" id="userSearch" class="search-input" placeholder="Cari pengguna...">
+                            <button class="btn-primary btn-sm" id="btnAddUser">+ Tambah Pengguna</button>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Dibuat</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userList"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Hasil Ujian ===== -->
+            <section class="section" id="section-results">
+                <div class="section-head">
+                    <h1>Hasil Ujian</h1>
+                    <p>Seluruh nilai siswa yang sudah mengumpulkan ujian.</p>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-head">
+                        <h2>Riwayat Nilai</h2>
+                        <div class="table-tools">
+                            <select id="resultFilter" class="search-input">
+                                <option value="">Semua Ujian</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Siswa</th>
+                                    <th>Ujian</th>
+                                    <th>Skor</th>
+                                    <th>Benar</th>
+                                    <th>Salah</th>
+                                    <th>Kosong</th>
+                                    <th>Waktu</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultList"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ===== Modal: Tambah Pengguna ===== -->
+    <div class="modal-overlay" id="addUserModal">
+        <div class="modal-content">
+            <h2>➕ Tambah Pengguna</h2>
+            <p class="modal-sub">Akun admin bisa login langsung ke dashboard ini.</p>
+            <div class="modal-form">
+                <div class="form-field">
+                    <label>Username</label>
+                    <input type="text" id="auUsername" placeholder="cth: budi2026">
+                </div>
+                <div class="form-field">
+                    <label>Email</label>
+                    <input type="email" id="auEmail" placeholder="cth: budi@mail.com">
+                </div>
+                <div class="form-field">
+                    <label>Password (min. 6 karakter)</label>
+                    <input type="password" id="auPassword" placeholder="••••••••">
+                </div>
+                <div class="form-field">
+                    <label>Level Akun</label>
+                    <select id="auRole">
+                        <option value="siswa">Siswa</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-ghost" onclick="closeModal('addUserModal')">Batal</button>
+                <button class="btn-primary" id="btnSaveUser">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal: Reset Password ===== -->
+    <div class="modal-overlay" id="resetModal">
+        <div class="modal-content">
+            <h2>🔑 Reset Password</h2>
+            <p class="modal-sub" id="resetTarget"></p>
+            <div class="modal-form">
+                <div class="form-field">
+                    <label>Password Baru (min. 6 karakter)</label>
+                    <input type="password" id="rpPassword" placeholder="••••••••">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-ghost" onclick="closeModal('resetModal')">Batal</button>
+                <button class="btn-primary" id="btnResetSave">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span class="toast-icon" id="toastIcon"></span>
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

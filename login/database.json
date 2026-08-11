@@ -5,8 +5,130 @@
       "username": "admin",
       "password": "admin123",
       "email": "admin@example.com",
+      "role": "admin",
+      "blocked": false,
       "createdAt": "2024-01-01",
       "NISN": "203014"
+    },
+    {
+      "id": 2,
+      "username": "preview_test",
+      "email": "preview_test@example.com",
+      "password": "secret123",
+      "role": "siswa",
+      "blocked": false,
+      "createdAt": "2026-08-11"
+    },
+    {
+      "id": 3,
+      "username": "superadmin",
+      "email": "superadmin@ujianku.test",
+      "password": "super123",
+      "role": "admin",
+      "blocked": false,
+      "createdAt": "2026-08-11"
     }
-  ]
+  ],
+  "tokens": [
+    {
+      "id": 1,
+      "token": "MTK-ADE399",
+      "kode": "matematika",
+      "dibuat": "2026-08-11T04:05:27.788Z",
+      "ekspired": "2026-08-11T06:05:27.788Z",
+      "dipakaiOleh": {
+        "userId": 2,
+        "username": "preview_test",
+        "dipakaiPada": "2026-08-11T04:05:32.813Z"
+      },
+      "aktif": true
+    },
+    {
+      "id": 2,
+      "token": "MTK-35133E",
+      "kode": "matematika",
+      "dibuat": "2026-08-11T04:05:27.788Z",
+      "ekspired": "2026-08-11T06:05:27.788Z",
+      "dipakaiOleh": null,
+      "aktif": true
+    },
+    {
+      "id": 3,
+      "token": "MTK-6F506D",
+      "kode": "matematika",
+      "dibuat": "2026-08-11T04:06:50.693Z",
+      "ekspired": "2026-08-11T06:06:50.693Z",
+      "dipakaiOleh": {
+        "userId": 2,
+        "username": "preview_test",
+        "dipakaiPada": "2026-08-11T04:10:54.040Z"
+      },
+      "aktif": true
+    },
+    {
+      "id": 4,
+      "token": "MTK-BE4D0E",
+      "kode": "matematika",
+      "dibuat": "2026-08-11T04:06:50.693Z",
+      "ekspired": "2026-08-11T06:06:50.693Z",
+      "dipakaiOleh": null,
+      "aktif": true
+    },
+    {
+      "id": 5,
+      "token": "MTK-7CD3D9",
+      "kode": "matematika",
+      "dibuat": "2026-08-11T04:06:50.693Z",
+      "ekspired": "2026-08-11T06:06:50.693Z",
+      "dipakaiOleh": null,
+      "aktif": true
+    }
+  ],
+  "results": [
+    {
+      "id": 1,
+      "userId": 2,
+      "username": "preview_test",
+      "kode": "matematika",
+      "namaUjian": "Ujian Akhir Matematika",
+      "skor": 80,
+      "benar": 12,
+      "salah": 2,
+      "kosong": 1,
+      "jumlah": 15,
+      "tanggal": "2026-08-11T04:05:32.902Z"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "username": "preview_test",
+      "kode": "matematika",
+      "namaUjian": "Ujian Akhir Matematika",
+      "skor": 13,
+      "benar": 2,
+      "salah": 0,
+      "kosong": 13,
+      "jumlah": 15,
+      "tanggal": "2026-08-11T04:08:27.180Z"
+    }
+  ],
+  "pengaturan": {
+    "exams": {
+      "matematika": {
+        "nama": "Ujian Akhir Matematika",
+        "aktif": true,
+        "waktuMenit": 30
+      },
+      "indonesia": {
+        "nama": "Ujian Literasi Bahasa Indonesia",
+        "aktif": true,
+        "waktuMenit": 30
+      },
+      "inggris": {
+        "nama": "English Literacy Test",
+        "aktif": true,
+        "waktuMenit": 30
+      }
+    }
+  }
 }

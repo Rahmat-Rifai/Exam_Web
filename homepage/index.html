@@ -1,240 +1,105 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ujian Sekolah</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: #f4f7f6;
-      padding: 40px 20px;
-    }
-
-    .header-section {
-      text-align: center;
-      margin-bottom: 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto 40px;
-      padding: 0 20px;
-    }
-
-    .header-section h1 {
-      font-size: 2rem;
-      color: #1e293b;
-      margin-bottom: 10px;
-    }
-
-    .header-section p {
-      color: #64748b;
-      font-size: 1rem;
-    }
-
-    .user-info-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      background: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .user-info-header span {
-      color: #333;
-      font-weight: 600;
-    }
-
-    .btn-logout {
-      background: #ef4444;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.3s;
-    }
-
-    .btn-logout:hover {
-      background: #dc2626;
-    }
-
-    /* Container Grid 3 Kolom */
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* Styling Kartu */
-    .exam-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      /* Kunci Animasi Transition */
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
-
-    /* Animasi saat Mouse Diarahkan (Hover) */
-    .exam-card:hover {
-      transform: translateY(-8px); /* Mengangkat kartu ke atas */
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      border-color: #3b82f6;
-    }
-
-    /* Badge Label atas */
-    .badge {
-      display: inline-block;
-      align-self: flex-start;
-      background-color: #e0f2fe;
-      color: #0369a1;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-    }
-
-    .exam-card h2 {
-      font-size: 1.3rem;
-      color: #0f172a;
-      margin-bottom: 12px;
-    }
-
-    .exam-card p {
-      color: #475569;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
-
-    /* Daftar Fitur / Info Ujian */
-    .info-list {
-      list-style: none;
-      margin-bottom: 24px;
-    }
-
-    .info-list li {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: #334155;
-      margin-bottom: 8px;
-    }
-
-    .info-list li span {
-      color: #10b981; /* Warna hijau ikon centang */
-      font-weight: bold;
-    }
-
-    /* Tombol Utama */
-    .btn-start {
-      background-color: #10b981;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 12px 20px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      /* Animasi Transisi Tombol */
-      transition: background-color 0.2s ease, transform 0.1s ease;
-    }
-
-    .btn-start:hover {
-      background-color: #059669;
-    }
-
-    .btn-start:active {
-      transform: scale(0.98);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda — UjianKu</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="header-section">
-    <div>
-      <h1>Persiapan Ujian Sekolah</h1>
-      <p>Pilih mata pelajaran yang ingin kamu kerjakan hari ini.</p>
-    </div>
-    <div class="user-info-header" id="userInfoHeader" style="display: none;">
-      <span id="displayUsername"></span>
-      <button class="btn-logout" onclick="logout()">Logout</button>
-    </div>
-  </div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <div class="brand">
+                <div class="logo-icon">🎓</div>
+                <span>UjianKu</span>
+            </div>
 
-  <div class="card-container">
-    
-    <!-- Kartu 1 -->
-    <div class="exam-card">
-      <div>
-        <span class="badge">Matematika</span>
-        <h2>Ujian Akhir Matematika</h2>
-        <p>Menguji kemampuan aljabar, geometri, dan logika perhitungan. Pastikan Anda siap sebelum memulai.</p>
-        
-        <ul class="info-list">
-          <li><span>✓</span> Analisis Skor & Pembahasan Lengkap</li>
-          <li><span>✓</span> 40 Soal Pilihan Ganda (90 Menit)</li>
-        </ul>
-      </div>
-      <button class="btn-start">Mulai Ujian</button>
+            <div class="user-info-header" id="userInfoHeader">
+                <a class="btn-admin" id="adminLink" href="/admin/index.html" style="display:none;">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Dashboard Admin
+                </a>
+                <div class="user-chip">
+                    <div class="avatar" id="displayAvatar">?</div>
+                    <span id="displayUsername"></span>
+                </div>
+                <button class="btn-logout" onclick="logout()">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    Keluar
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Halo, selamat belajar! <span class="gradient-text" id="greetingName"></span></h1>
+        <p>Pilih mata pelajaran yang ingin kamu kerjakan hari ini. Nilai kamu akan dinilai otomatis setelah ujian selesai.</p>
+    </section>
+
+    <!-- Kartu Ujian -->
+    <div class="card-container">
+
+        <!-- Matematika -->
+        <div class="exam-card" data-kode="matematika">
+            <div>
+                <div class="card-top">
+                    <div class="card-icon">📐</div>
+                    <span class="badge">Matematika</span>
+                    <span class="exam-status-badge active hidden" data-status="matematika">● Aktif</span>
+                </div>
+                <h2>Ujian Akhir Matematika</h2>
+                <p>Menguji kemampuan aljabar, geometri, dan logika perhitungan. Pastikan kamu siap sebelum memulai.</p>
+                <ul class="info-list">
+                    <li><span class="check">✓</span> Analisis skor & pembahasan lengkap</li>
+                    <li><span class="check">✓</span> 15 soal pilihan ganda (30 menit)</li>
+                </ul>
+            </div>
+            <a class="btn-start" data-link="matematika" href="../Soal/soal-matematika.html">Mulai Ujian →</a>
+        </div>
+
+        <!-- Bahasa Indonesia -->
+        <div class="exam-card" data-kode="indonesia">
+            <div>
+                <div class="card-top">
+                    <div class="card-icon">📖</div>
+                    <span class="badge">Bahasa Indonesia</span>
+                    <span class="exam-status-badge active hidden" data-status="indonesia">● Aktif</span>
+                </div>
+                <h2>Ujian Literasi Bahasa</h2>
+                <p>Menguji pemahaman bacaan, tata bahasa, dan analisis teks sastra maupun non-sastra.</p>
+                <ul class="info-list">
+                    <li><span class="check">✓</span> Evaluasi pemahaman bacaan</li>
+                    <li><span class="check">✓</span> 15 soal pilihan ganda (30 menit)</li>
+                </ul>
+            </div>
+            <a class="btn-start" data-link="indonesia" href="../Soal/soal.html">Mulai Ujian →</a>
+        </div>
+
+        <!-- Bahasa Inggris -->
+        <div class="exam-card" data-kode="inggris">
+            <div>
+                <div class="card-top">
+                    <div class="card-icon">🌍</div>
+                    <span class="badge">Bahasa Inggris</span>
+                    <span class="exam-status-badge active hidden" data-status="inggris">● Aktif</span>
+                </div>
+                <h2>English Literacy Test</h2>
+                <p>Uji kemampuan <em>grammar</em>, <em>reading comprehension</em>, serta struktur kalimat dalam Bahasa Inggris.</p>
+                <ul class="info-list">
+                    <li><span class="check">✓</span> Standar soal nasional</li>
+                    <li><span class="check">✓</span> 15 soal pilihan ganda (30 menit)</li>
+                </ul>
+            </div>
+            <a class="btn-start" data-link="inggris" href="../Soal/soal-inggris.html">Mulai Ujian →</a>
+        </div>
+
     </div>
 
-    <!-- Kartu 2 -->
-    <div class="exam-card">
-      <div>
-        <span class="badge">Bahasa Indonesia</span>
-        <h2>Ujian Literasi Bahasa</h2>
-        <p>Menguji pemahaman bacaan, tata bahasa, dan analisis teks sastra maupun non-sastra.</p>
-        
-        <ul class="info-list">
-          <li><span>✓</span> Evaluasi Pemahaman Bacaan</li>
-          <li><span>✓</span> 50 Soal Pilihan Ganda (90 Menit)</li>
-        </ul>
-      </div>
-      <button class="btn-start" onclick="window.location.href='../Soal/soal.html'">Mulai Ujian</button>
-    </div>
+    <footer class="footer">© 2026 UjianKu — Platform Ujian Sekolah Online</footer>
 
-    <!-- Kartu 3 -->
-    <div class="exam-card">
-      <div>
-        <span class="badge">Bahasa Inggris</span>
-        <h2>English Literacy Test</h2>
-        <p>Uji kemampuan <em>grammar</em>, <em>reading comprehension</em>, serta struktur kalimat dalam Bahasa Inggris.</p>
-        
-        <ul class="info-list">
-          <li><span>✓</span> Standar Soal Nasional / TOEFL</li>
-          <li><span>✓</span> 45 Soal Pilihan Ganda (60 Menit)</li>
-        </ul>
-      </div>
-      <button class="btn-start">Mulai Ujian</button>
-    </div>
-
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
