@@ -1,26 +1,26 @@
-# 🎓 UjianKu — Platform Ujian Sekolah Online
+# UjianKu - Platform Ujian Sekolah Online
 
-Platform ujian sekolah berbasis web dengan **login berlevel (siswa & admin)**, **token ujian yang dikelola admin**, **kontrol penuh jalannya ujian**, dan **penilaian otomatis**. Seluruh UI mengikuti sistem desain monokrom pada [`design.md`](./design.md).
+Platform ujian sekolah berbasis web: login berlevel (siswa & admin), token ujian yang dikelola admin, dan penilaian otomatis. UI memakai palet monokrom dua warna (ink/paper).
 
-## ✨ Fitur
+## Fitur
 
 ### Untuk Siswa
 - Registrasi & login akun siswa
 - Beranda dengan daftar ujian + status aktif/nonaktif
-- **Token ujian** wajib dimasukkan sebelum ujian dimulai (token diberikan admin)
+- Token ujian wajib dimasukkan sebelum mulai (diberikan admin)
 - 45 soal pilihan ganda di 3 mata pelajaran (15 soal per mapel, 30 menit)
-- Timer hitung mundur (auto-kumpul saat waktu habis), navigasi nomor soal, progress bar
+- Timer hitung mundur (auto-kumpul saat waktu habis), navigasi nomor, progress bar
 - Penilaian otomatis: skor, statistik benar/salah/kosong, dan pembahasan per soal salah
-- Nilai otomatis tersimpan ke server
+- Nilai tersimpan ke server
 
 ### Untuk Admin
-- Dashboard admin lengkap (akun berlevel `admin`)
-- **Kelola Ujian** — aktifkan/nonaktifkan ujian & atur durasi (berlaku langsung)
-- **Generate Token** — buat token per mata pelajaran (jumlah & masa berlaku), salin, nonaktifkan, hapus
-- **Siswa & Admin** — buat akun baru (pilih level), blokir/buka blokir, reset password, hapus
-- **Hasil Ujian** — pantau seluruh nilai siswa + statistik ringkasan
+- Dashboard admin (level akun `admin`)
+- Kelola Ujian - aktifkan/nonaktifkan ujian & atur durasi
+- Generate Token - buat token per mapel (jumlah & masa berlaku), salin, nonaktifkan, hapus
+- Siswa & Admin - buat akun, blokir/buka blokir, reset password, hapus
+- Hasil Ujian - pantau nilai siswa + statistik ringkasan
 
-## 🗂️ Struktur Project
+## Struktur Project
 
 ```
 Exam_Web/
@@ -41,13 +41,12 @@ Exam_Web/
 │   ├── index.html
 │   ├── script.js
 │   └── style.css
-├── design.md           # Sistem desain yang dipakai semua UI
 └── README.md
 ```
 
-## 🚀 Menjalankan
+## Menjalankan
 
-**Prasyarat:** [Node.js](https://nodejs.org) (v16+).
+Prasyarat: [Node.js](https://nodejs.org) (v16+).
 
 ```bash
 # 1. Install dependensi (folder login)
@@ -57,33 +56,32 @@ npm install
 # 2. Jalankan server
 node server.js
 
-# 3. Buka aplikasi
-#    http://localhost:3000
+# 3. Buka aplikasi di http://localhost:3000
 ```
 
-Server Express melayani semua folder statis (`/homepage`, `/Soal`, `/admin`) dan API di port `3000`.
+Server Express melayani folder statis (`/homepage`, `/Soal`, `/admin`) dan API di port `3000`.
 
-## 👤 Akun Demo
+## Akun Demo
 
 | Username | Password | Level |
 |----------|----------|-------|
-| `admin` | `admin123` | Admin (redirect ke dashboard) |
+| `admin` | `admin123` | Admin |
 | `superadmin` | `super123` | Admin |
 | `preview_test` | `secret123` | Siswa |
 
-Akun siswa juga bisa dibuat lewat tab **Daftar** di halaman login.
+Akun siswa bisa dibuat lewat tab **Daftar** di halaman login.
 
-## 🧭 Alur Penggunaan
+## Alur Penggunaan
 
-**Siswa:** login/daftar → beranda → klik *Mulai Ujian* → masukkan **token** dari admin → kerjakan soal → *Selesai Ujian* → lihat skor & pembahasan → nilai tersimpan otomatis.
+**Siswa:** login/daftar -> beranda -> klik *Mulai Ujian* -> masukkan **token** dari admin -> kerjakan soal -> *Selesai Ujian* -> lihat skor & pembahasan -> nilai tersimpan.
 
-**Admin:** login → dashboard → **Kelola Ujian** (aktifkan & atur durasi) → **Token Ujian** (generate & bagikan ke siswa) → **Hasil Ujian** (pantau nilai).
+**Admin:** login -> dashboard -> **Kelola Ujian** (aktifkan & atur durasi) -> **Token Ujian** (generate & bagikan) -> **Hasil Ujian** (pantau nilai).
 
-> 💡 Token bersifat **sekali pakai per siswa** dan memiliki masa berlaku. Jika ujian dinonaktifkan, semua token otomatis ditolak. Siswa yang sama boleh mengulang ujian dengan token yang sama selama masa berlakunya.
+> Token bersifat **sekali pakai per siswa** dan punya masa berlaku. Jika ujian dinonaktifkan, semua token ditolak. Siswa yang sama boleh mengulang dengan token yang sama selama masih berlaku.
 
-## 🔌 API
+## API
 
-Semua endpoint di bawah `http://localhost:3000/api`. Endpoint admin wajib mengirim header `x-user-id` dari akun berlevel admin.
+Semua endpoint ada di `http://localhost:3000/api`. Endpoint admin membaca header `x-user-id`.
 
 | Method | Endpoint | Deskripsi |
 |--------|----------|-----------|
@@ -94,22 +92,14 @@ Semua endpoint di bawah `http://localhost:3000/api`. Endpoint admin wajib mengir
 | POST | `/api/results` | Simpan hasil ujian (siswa) |
 | GET | `/api/results/me` | Hasil ujian milik sendiri |
 | GET | `/api/admin/stats` | Statistik ringkas dashboard |
-| GET/POST | `/api/admin/exams` · `/api/admin/exams/:kode` | Kelola pengaturan ujian |
-| GET/POST | `/api/admin/tokens` · `/:id/toggle` · `DELETE /:id` | Kelola token |
-| GET/POST | `/api/admin/users` · `/:id/toggle-block` · `/:id/reset-password` · `DELETE /:id` | Kelola akun |
+| GET/POST | `/api/admin/exams` | Kelola pengaturan ujian |
+| GET/POST | `/api/admin/tokens` | Kelola token |
+| GET/POST | `/api/admin/users` | Kelola akun |
 | GET | `/api/admin/results` | Seluruh hasil ujian |
 
-## 🎨 Sistem Desain
+## Catatan Keamanan (untuk produksi)
 
-Semua halaman (login, homepage, ujian, dashboard admin) memakai palet dua warna dari [`design.md`](./design.md):
-
-- **Ink** `#141413` — teks, border, tombol, surface gelap
-- **Paper** `#faf9f5` — latar krem hangat
-- Tanpa gradien/aksen warna; fokus aksesibel 2px outline, `prefers-reduced-motion`, breakpoint `768px`
-
-## ⚠️ Catatan Keamanan (untuk produksi)
-
-Project ini bertujuan demo/akademik. Sebelum dipakai produksi, perbaiki:
-1. **Password plaintext** di `database.json` → hash dengan bcrypt.
-2. **Autentikasi API** memakai header `x-user-id` dari client → ganti dengan session/JWT.
-3. **Token random** memakai `crypto.randomBytes` — sudah aman, tapi pastikan rotasi & penarikan token berkala.
+Project ini demo/akademik. Sebelum dipakai produksi:
+1. **Password plaintext** di `database.json` -> hash (mis. bcrypt).
+2. **Autentikasi API** memakai header `x-user-id` dari client -> ganti dengan session/JWT. Header saat ini bisa dipalsukan.
+3. Token memakai `crypto.randomBytes` - aman, tapi siapkan rotasi & penarikan token.
